@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BIA Content Checklist</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Content checklist for BIA's two websites — tell us what you have, we'll build the rest.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: SaaS app shell. Left rail with site switcher, progress and section nav on desktop,
+   collapsing to a stacked top bar with horizontally scrolling chips on phones.
+   Main column of item cards with a three-way status control. */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --ink:#0F1B33; --muted:#5E6B85; --line:#E3E8F0; --soft:#EEF1F7;
+  --brand:#0B1B3A; --brand2:#142a56; --brand-ink:#FFFFFF; --accent:#F5A524; --accent2:#FFC968; --accent-soft:#FFF3DC; --accent-ink:#8A5A00;
+  --ok:#14795A; --ok-soft:#E1F4EC; --na:#5E6B85;
+  --shadow:0 1px 2px rgba(15,27,51,.05),0 6px 20px rgba(15,27,51,.05);
+  --shadow-lg:0 2px 4px rgba(15,27,51,.06),0 16px 40px rgba(15,27,51,.09);
+  --head:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; --body:'Public Sans','Segoe UI',Arial,sans-serif;
+  --r-lg:18px; --r-md:14px; --r-sm:10px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0A1022; --surface:#111A33; --ink:#EDF1FA; --muted:#9FADC9; --line:#232F52; --soft:#18233F;
+  --brand:#070D1D; --brand2:#0d1733; --accent-soft:#3A2B0B; --accent-ink:#F5C26B; --ok:#58D1A0; --ok-soft:#10342A; --na:#9FADC9;
+  --shadow:none; --shadow-lg:0 20px 50px rgba(0,0,0,.45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0A1022; --surface:#111A33; --ink:#EDF1FA; --muted:#9FADC9; --line:#232F52; --soft:#18233F;
+  --brand:#070D1D; --brand2:#0d1733; --accent-soft:#3A2B0B; --accent-ink:#F5C26B; --ok:#58D1A0; --ok-soft:#10342A; --na:#9FADC9;
+  --shadow:none; --shadow-lg:0 20px 50px rgba(0,0,0,.45); color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 80px;
+  -webkit-font-smoothing:antialiased}
+.shell{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start}
+.rail{position:sticky;top:calc(20px + env(safe-area-inset-top,0px));display:grid;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow)}
+
+/* Site switcher */
+.siteswitch{padding:6px;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.siteswitch button{all:unset;box-sizing:border-box;cursor:pointer;border-radius:12px;padding:10px 8px;text-align:center;display:grid;gap:4px;transition:background .15s,transform .1s}
+.siteswitch button:hover{background:var(--soft)}
+.siteswitch button:active{transform:scale(.98)}
+.siteswitch button .t{font:700 13px var(--head);color:var(--muted)}
+.siteswitch button .p{font:800 17px var(--head);color:var(--ink)}
+.siteswitch button[aria-current=true]{background:var(--brand);box-shadow:var(--shadow-lg)}
+.siteswitch button[aria-current=true] .t{color:#B9C4E0}
+.siteswitch button[aria-current=true] .p{color:#fff}
+.siteswitch button[aria-current=true] .p::after{content:" done";font:700 11px var(--body);color:var(--accent2);opacity:0}
+.siteswitch button[data-full=true] .p{color:var(--ok)}
+.siteswitch button[aria-current=true][data-full=true] .p{color:#7CF0C4}
+
+.id{padding:18px;display:grid;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;font:800 15px var(--head);letter-spacing:.04em}
+.logo i{width:32px;height:32px;border-radius:10px;background:linear-gradient(155deg,var(--brand),var(--brand2));color:var(--accent);display:grid;place-items:center;font:800 15px var(--head);font-style:normal;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.site-tag{display:inline-flex;align-items:center;gap:8px;font:700 12px var(--head);letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent-soft);padding:5px 10px;border-radius:99px;width:max-content}
+.ring-row{display:flex;align-items:center;gap:14px}
+.ring{--p:0;width:68px;height:68px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--soft) 0);display:grid;place-items:center;flex:none;transition:background 1s cubic-bezier(.16,1,.3,1)}
+.ring b{width:52px;height:52px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font:800 16px var(--head)}
+.ring-row p{margin:0;font-size:14px;color:var(--muted)}
+.ring-row strong{display:block;color:var(--ink);font:700 15px var(--head)}
+.nav{padding:8px;display:grid;gap:2px}
+.nav button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font:600 14px var(--head);color:var(--ink);transition:background .12s}
+.nav button:hover{background:var(--soft)}
+.nav button[aria-current=true]{background:var(--soft)}
+.nav .cnt{font:600 12px var(--body);color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:99px;transition:background .2s,color .2s}
+.nav button[aria-current=true] .cnt{background:var(--surface)}
+.nav .cnt.full{background:var(--ok-soft);color:var(--ok)}
+.rail-foot{padding:14px 16px;display:grid;gap:10px}
+.rail-foot .k{font:600 13px var(--head);color:var(--muted)}
+.rail-foot .v{font:700 14px var(--head)}
+
+.main{display:grid;gap:30px;min-width:0}
+.hero h1{font:800 clamp(26px,4vw,34px)/1.12 var(--head);letter-spacing:-.025em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--muted);max-width:60ch}
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.howto div{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.howto b{flex:none;width:24px;height:24px;border-radius:8px;background:linear-gradient(155deg,var(--brand),var(--brand2));color:var(--accent);display:grid;place-items:center;font:700 12px var(--head)}
+section.group{display:grid;gap:12px;scroll-margin-top:16px}
+.gh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gh h2{font:800 20px var(--head);letter-spacing:-.015em;margin:0}
+.gh p{margin:2px 0 0;color:var(--muted);font-size:14px}
+#itemsBasics,#itemsContent{display:grid;gap:12px}
+.item{padding:16px 18px;display:grid;gap:12px;transition:border-color .15s,box-shadow .15s}
+.item:hover{box-shadow:var(--shadow-lg)}
+.item[data-s=ready]{border-color:var(--ok)}
+.item-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.item h3{font:700 16px var(--head);margin:0}
+.item p.need{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.seg{display:inline-flex;background:var(--soft);border-radius:10px;padding:3px;gap:2px;flex:none}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.seg span{display:block;padding:6px 12px;border-radius:8px;font:600 13px var(--head);color:var(--muted);white-space:nowrap;transition:background .15s,color .15s,box-shadow .15s}
+.seg input:checked + span{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(15,27,51,.14)}
+.item[data-s=ready] .seg input:checked + span{background:var(--ok);color:#fff}
+.seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:1px}
+input[type=text],textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;transition:border-color .15s}
+input[type=text]:hover,textarea:hover{border-color:#c7d0e0}
+textarea{min-height:100px;resize:vertical}
+input[type=text]:focus-visible,textarea:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:1px;background:var(--surface)}
+::placeholder{color:var(--muted);opacity:.75}
+.fields{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields label,.lab{display:block;font:600 13px var(--head);color:var(--muted);margin-bottom:5px}
+.map{padding:18px}
+.map ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.map li{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:6px;align-content:start}
+.map li small{font:700 11px var(--head);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.map li.fixed{background:var(--soft)}
+.map li.fixed b{font:700 15px var(--head)}
+.send{background:linear-gradient(155deg,var(--brand),var(--brand2));color:#fff;border-radius:var(--r-lg);padding:26px;display:grid;gap:12px;box-shadow:var(--shadow-lg)}
+.send h2{margin:0;font:800 22px var(--head);letter-spacing:-.015em}
+.send p{margin:0;color:#C3CEE8}
+.btn{font:700 16px var(--head);background:linear-gradient(155deg,var(--accent2),var(--accent));color:#14213D;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;width:max-content;transition:transform .1s,box-shadow .15s}
+.btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-size:14px;padding:10px 14px}
+.msg{min-height:1.4em;font-size:15px;color:#C3CEE8}
+.summary{width:100%;min-height:200px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--surface);color:var(--ink)}
+.foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;color:var(--muted);font-size:14px}
+.main[aria-busy=true]{opacity:0}
+.main{transition:opacity .18s ease}
+@media (max-width:920px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:18px}
+  .rail{position:static}
+  .id{grid-template-columns:1fr;}
+  .nav{display:flex;overflow-x:auto;padding:6px;gap:4px;scrollbar-width:none}
+  .nav button{flex:none;white-space:nowrap}
+  .howto{grid-template-columns:1fr}
+  .map ol{grid-template-columns:1fr 1fr}
+  .map li.fixed{grid-column:auto}
+}
+@media (max-width:560px){
+  .fields{grid-template-columns:1fr}
+  .item-top{flex-direction:column}
+  .seg{width:100%}.seg label{flex:1}.seg span{text-align:center;padding:9px 6px}
+  .map ol{grid-template-columns:1fr}
+  .foot{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){.item,.ring,.main{transition:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="rail">
+  <div class="panel siteswitch" id="siteSwitch" role="tablist" aria-label="Choose a website"></div>
+  <div class="panel id">
+    <div class="logo"><i>L</i>LEADBIZ</div>
+    <span class="site-tag" id="siteTag">Website 1 of 2</span>
+    <div class="ring-row">
+      <div class="ring" id="ring"><b id="pct">0%</b></div>
+      <p><strong id="ptxt">0 of 0 ready</strong>Items you have sent us</p>
+    </div>
+  </div>
+  <nav class="panel nav" id="nav" aria-label="Sections"></nav>
+  <div class="panel rail-foot">
+    <div><span class="k">Overall, both sites</span></div>
+    <div class="v" id="bothPct">0% complete</div>
+  </div>
+</aside>
+
+<main class="main" id="main">
+  <div class="hero">
+    <h1 id="heroTitle">Website 1: content checklist</h1>
+    <p>This list shows what we need from you to write and build this website. Fill in what you have. Anything missing, we will chase.</p>
+    <div class="howto">
+      <div><b>1</b><span>Type or paste a link in the box. Drive and WeTransfer links work.</span></div>
+      <div><b>2</b><span>Mark the item Ready when you have sent it, or Not needed.</span></div>
+      <div><b>3</b><span>At the bottom, copy your answers and send them to us.</span></div>
+    </div>
+  </div>
+
+  <section class="group" id="g-about" data-g="about">
+    <div class="gh"><h2>About this website</h2><p>Basic details so we know what we are building.</p></div>
+    <div class="panel fields">
+      <div><label for="name">What is this website for?</label><input type="text" id="name" data-k="name" placeholder="Name or purpose"></div>
+      <div><label for="dom">Web address</label><input type="text" id="dom" data-k="dom" placeholder="example.in"></div>
+      <div><label for="cname">Who approves the work?</label><input type="text" id="cname" data-k="cname" placeholder="Name"></div>
+      <div><label for="cphone">Phone or WhatsApp</label><input type="text" id="cphone" data-k="cphone" placeholder="Number"></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-basics" data-g="basics">
+    <div class="gh"><h2>Brand and access</h2><p>Logo, contact details and the logins we need.</p></div>
+    <div id="itemsBasics"></div>
+  </section>
+
+  <section class="group" id="g-pages" data-g="pages">
+    <div class="gh"><h2>The five pages</h2><p>Page 1 is Home and page 5 is Contact. Name pages 2 to 4.</p></div>
+    <div class="panel map"><ol id="pageMap"></ol></div>
+  </section>
+
+  <section class="group" id="g-content" data-g="content">
+    <div class="gh"><h2>Content for each page</h2><p>Type short text in the box. Share photos and videos as a link.</p></div>
+    <div id="itemsContent"></div>
+  </section>
+
+  <section class="group" id="g-claims" data-g="claims">
+    <div class="gh"><h2>Claims you want to show</h2><p>Placement, salary, certification or ranking claims. Add proof for each. We publish a claim only after you approve it in writing.</p></div>
+    <div class="panel fields" style="grid-template-columns:1fr">
+      <div><label for="claims">Claims and proof</label><textarea id="claims" data-k="claims" placeholder="Write none if you have no claims to show"></textarea></div>
+    </div>
+  </section>
+
+  <div class="send">
+    <h2>Done? Send it to us</h2>
+    <p>Press the button, then paste the copied text into a WhatsApp message or email to LeadBiz. This copies answers for both websites.</p>
+    <button type="button" class="btn" id="copyBtn">Copy my answers</button>
+    <div class="msg" id="msg" role="status"></div>
+    <textarea class="summary" id="summary" readonly aria-label="Your answers as text" hidden></textarea>
+  </div>
+  <div class="foot">
+    <span>Your answers are saved in this browser as you type.</span>
+    <button type="button" class="btn ghost" id="clearBtn">Clear this website's answers</button>
+  </div>
+</main>
+</div>
+
+<script>
+(function(){
+var BASIC=[
+['Logo','PNG or SVG file. Light and dark versions if you have them.'],
+['Brand colours and fonts','Colour codes, or your brand guide.'],
+['Web address and hosting','Login details, or the name of the person who manages them.'],
+['CRM details','Name of your CRM and who can give us access to connect the forms.'],
+['Contact details','Phone, WhatsApp, email, full address and Google Maps link.'],
+['Social media links','Instagram, LinkedIn, YouTube, Facebook.'],
+['Tracking codes','Meta Pixel and Google Analytics, if already set up.'],
+['Privacy policy and terms','Send yours, or tell us to write them.'],
+['Websites you like','Two or three links, and what you like in each.']
+];
+var CONTENT=[
+['Home: headline and one-line offer','What you do and for whom, in one sentence.'],
+['Home: main video or image','A short campus or class video, or a photo.'],
+['Home: numbers or proof','Only figures you can back up in writing.'],
+['Home: who it is for','The groups visitors should pick from, for example working professionals and students.'],
+['About: your story','Who you are, when you started and why.'],
+['About: team and faculty','Name, role, photo and a two-line bio for each person.'],
+['Courses: list','Name of each course, who it is for and what it covers.'],
+['Courses: details','Duration, fee, batch timings, classroom or online, certificate. Only what you want shown.'],
+['Results and gallery','Student projects, class photos, events.'],
+['Testimonials','Name, photo, one or two lines, and permission to use them.'],
+['FAQs','The 6 to 8 questions people ask you most, with answers.'],
+['Enquiry form','Which questions the form should ask, and where each enquiry should go.'],
+['Page 4 content','Whatever the fourth page is for, as named under The five pages.'],
+['Photos and videos','Sharp photos that are yours or licensed to you.']
+];
+var GROUPS=[['about','About this website'],['basics','Brand and access'],['pages','The five pages'],['content','Page content'],['claims','Claims']];
+var TOTAL_ITEMS=BASIC.length+CONTENT.length;
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+
+var STATE={1:{},2:{}};
+[1,2].forEach(function(n){
+  try{STATE[n]=JSON.parse(localStorage.getItem('bia-site'+n+'-v1')||'{}')}catch(e){STATE[n]={}}
+});
+function save(n){try{localStorage.setItem('bia-site'+n+'-v1',JSON.stringify(STATE[n]))}catch(e){}}
+
+var current=1;
+var items=[]; // built once, ids identical across sites
+
+function buildStatic(){
+  var h='';
+  BASIC.forEach(function(it,i){
+    var id='b'+i; items.push({id:id,g:'basics'});
+    h+=itemHtml(id,it);
+  });
+  document.getElementById('itemsBasics').innerHTML=h;
+  h='';
+  CONTENT.forEach(function(it,i){
+    var id='c'+i; items.push({id:id,g:'content'});
+    h+=itemHtml(id,it);
+  });
+  document.getElementById('itemsContent').innerHTML=h;
+
+  var pm='<li class="fixed"><small>Page 1</small><b>Home</b></li>';
+  [2,3,4].forEach(function(n){pm+='<li><small>Page '+n+'</small><input type="text" id="pg'+n+'" data-k="pg'+n+'" placeholder="Page name" aria-label="Page '+n+' name"></li>'});
+  pm+='<li class="fixed"><small>Page 5</small><b>Contact</b></li>';
+  document.getElementById('pageMap').innerHTML=pm;
+
+  var nav=document.getElementById('nav');
+  nav.innerHTML=GROUPS.map(function(g){return '<button type="button" data-nav="'+g[0]+'"><span>'+g[1]+'</span><span class="cnt" id="c-'+g[0]+'"></span></button>'}).join('');
+  nav.addEventListener('click',function(e){var b=e.target.closest('[data-nav]');if(!b)return;
+    var el=document.getElementById('g-'+b.getAttribute('data-nav'));
+    var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(el) el.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+  });
+
+  var ss=document.getElementById('siteSwitch');
+  ss.innerHTML=[1,2].map(function(n){return '<button type="button" role="tab" data-site="'+n+'"><span class="t">Website '+n+'</span><span class="p" id="sp-'+n+'">0%</span></button>'}).join('');
+  ss.addEventListener('click',function(e){var b=e.target.closest('[data-site]');if(!b)return;
+    switchSite(parseInt(b.getAttribute('data-site'),10));
+  });
+}
+function itemHtml(id,it){
+  return '<div class="panel item" data-item="'+id+'" data-s="todo"><div class="item-top"><div><h3>'+esc(it[0])+'</h3><p class="need">'+esc(it[1])+'</p></div>'+
+    '<div class="seg" role="radiogroup" aria-label="Status of '+esc(it[0])+'">'+
+    ['todo:To do','ready:Ready','na:Not needed'].map(function(o){var p=o.split(':');
+      return '<label><input type="radio" name="'+id+'_st" value="'+p[0]+'" data-st="'+id+'"><span>'+p[1]+'</span></label>'}).join('')+'</div></div>'+
+    '<input type="text" id="'+id+'_tx" data-k="'+id+'_tx" placeholder="Paste a link or type here" aria-label="Answer or link for '+esc(it[0])+'"></div>';
+}
+
+function done(it,st){var v=st[it.id+'_st']||'todo';return v!=='todo'}
+function pctFor(n){
+  var st=STATE[n],d=items.filter(function(it){return done(it,st)}).length;
+  return Math.round(100*d/items.length);
+}
+function refresh(){
+  var st=STATE[current];
+  var d=0;
+  items.forEach(function(it){
+    var v=st[it.id+'_st']||'todo', el=document.querySelector('[data-item="'+it.id+'"]');
+    el.setAttribute('data-s',v);
+    var r=el.querySelector('input[type=radio][value="'+v+'"]'); if(r) r.checked=true;
+    if(v!=='todo') d++;
+  });
+  var tot=items.length,pc=Math.round(100*d/tot);
+  document.getElementById('ring').style.setProperty('--p',pc);
+  document.getElementById('pct').textContent=pc+'%';
+  document.getElementById('ptxt').textContent=d+' of '+tot+' ready';
+  ['basics','content'].forEach(function(g){
+    var a=items.filter(function(i){return i.g===g}),n=a.filter(function(it){return done(it,st)}).length,c=document.getElementById('c-'+g);
+    c.textContent=n+'/'+a.length;c.classList.toggle('full',n===a.length);
+  });
+  var pn=[2,3,4].filter(function(n){return st['pg'+n]}).length,cp=document.getElementById('c-pages');
+  cp.textContent=pn+'/3';cp.classList.toggle('full',pn===3);
+  var ab=['name','dom','cname','cphone'].filter(function(k){return st[k]}).length,ca=document.getElementById('c-about');
+  ca.textContent=ab+'/4';ca.classList.toggle('full',ab===4);
+  var cl=document.getElementById('c-claims');cl.textContent=st.claims?'1/1':'0/1';cl.classList.toggle('full',!!st.claims);
+
+  [1,2].forEach(function(n){
+    var p=pctFor(n),el=document.getElementById('sp-'+n);
+    el.textContent=p+'%';
+    el.closest('button').setAttribute('data-full',p===100);
+    el.closest('button').setAttribute('aria-current',n===current);
+  });
+  document.getElementById('bothPct').textContent=Math.round((pctFor(1)+pctFor(2))/2)+'% complete';
+  document.getElementById('siteTag').textContent='Website '+current+' of 2';
+  document.getElementById('heroTitle').textContent='Website '+current+': content checklist';
+}
+
+function bindInputsForCurrentSite(){
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    el.value=STATE[current][k]!==undefined?STATE[current][k]:'';
+  });
+}
+document.addEventListener('input',function(e){
+  var el=e.target, k=el.getAttribute && el.getAttribute('data-k');
+  if(!k) return;
+  var st=STATE[current];
+  st[k]=el.value;
+  var m=k.match(/^([bc]\d+)_tx$/);
+  if(m && el.value.trim() && !st[m[1]+'_st']) st[m[1]+'_st']='ready';
+  save(current);refresh();
+});
+document.addEventListener('change',function(e){
+  var el=e.target, k=el.getAttribute && el.getAttribute('data-st');
+  if(!k) return;
+  STATE[current][k+'_st']=el.value;save(current);refresh();
+});
+
+function switchSite(n){
+  if(n===current) return;
+  current=n;
+  var main=document.getElementById('main');
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(rm){bindInputsForCurrentSite();refresh();return}
+  main.setAttribute('aria-busy','true');
+  setTimeout(function(){
+    bindInputsForCurrentSite();refresh();
+    main.removeAttribute('aria-busy');
+  },120);
+}
+
+var lab={todo:'To do',ready:'READY',na:'Not needed'};
+function summaryFor(n){
+  var st=STATE[n],g=function(k){return st[k]||'-'};
+  var t='BIA WEBSITE '+n+' CONTENT CHECKLIST\n\n';
+  t+='Purpose: '+g('name')+'\nWeb address: '+g('dom')+'\nApproved by: '+g('cname')+' | '+g('cphone')+'\n\nPAGES\nPage 1: Home\n';
+  [2,3,4].forEach(function(p){t+='Page '+p+': '+g('pg'+p)+'\n'});
+  t+='Page 5: Contact\n';
+  function sec(title,list,pre){
+    t+='\n'+title+'\n';
+    list.forEach(function(it,i){var id=pre+i;
+      t+='- '+it[0]+': '+lab[st[id+'_st']||'todo']+(st[id+'_tx']?' | '+st[id+'_tx']:'')+'\n';
+    });
+  }
+  sec('BRAND AND ACCESS',BASIC,'b');sec('PAGE CONTENT',CONTENT,'c');
+  t+='\nCLAIMS AND PROOF\n'+g('claims')+'\n';
+  return t;
+}
+var msg=document.getElementById('msg'),box=document.getElementById('summary');
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var t=summaryFor(1)+'\n\n'+'='.repeat(40)+'\n\n'+summaryFor(2);
+  box.value=t;box.hidden=false;
+  var ok=function(){msg.textContent='Copied both websites\' answers. Now paste it into WhatsApp or email.'};
+  var fb=function(){box.focus();box.select();msg.textContent='Select the text below, copy it and send it to us.'};
+  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}
+});
+var armed=false;
+document.getElementById('clearBtn').addEventListener('click',function(){
+  var b=this;
+  if(!armed){armed=true;b.textContent='Press again to clear Website '+current;setTimeout(function(){armed=false;b.textContent="Clear this website's answers"},4000);return}
+  STATE[current]={};save(current);bindInputsForCurrentSite();refresh();armed=false;b.textContent="Clear this website's answers";
+});
+
+buildStatic();
+bindInputsForCurrentSite();
+refresh();
+})();
+</script>
+</body>
+</html>
