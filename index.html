@@ -5,6 +5,7 @@
 <title>BIA Content Checklist</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Content checklist for BIA's two websites — tell us what you have, we'll build the rest.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B1B3A'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='800' font-size='16' fill='%23F5A524' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&display=swap">
@@ -64,7 +65,11 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font
 .nav button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font:600 14px var(--head);color:var(--ink);transition:background .12s}
 .nav button:hover{background:var(--soft)}
 .nav button[aria-current=true]{background:var(--soft)}
-.nav .cnt{font:600 12px var(--body);color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:99px;transition:background .2s,color .2s}
+.nav .navlabel{display:flex;align-items:center;gap:10px;min-width:0}
+.nav .navicon{flex:none;width:18px;height:18px;color:var(--muted)}
+.nav .navicon svg{width:100%;height:100%}
+.nav button[aria-current=true] .navicon{color:var(--accent-ink)}
+.nav .cnt{font:600 12px var(--body);color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:99px;transition:background .2s,color .2s;flex:none}
 .nav button[aria-current=true] .cnt{background:var(--surface)}
 .nav .cnt.full{background:var(--ok-soft);color:var(--ok)}
 .rail-foot{padding:14px 16px;display:grid;gap:10px}
@@ -77,23 +82,33 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font
 .howto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
 .howto div{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
 .howto b{flex:none;width:24px;height:24px;border-radius:8px;background:linear-gradient(155deg,var(--brand),var(--brand2));color:var(--accent);display:grid;place-items:center;font:700 12px var(--head)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.legend span{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.legend b{font:600 13px var(--head);color:var(--ink)}
+.legend i{flex:none;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-style:normal}
+.legend .dot-todo{background:var(--soft);box-shadow:inset 0 0 0 2px var(--muted)}
+.legend .dot-ready{background:var(--ok);color:#fff;font-size:10px;font-weight:800}
+.legend .dot-na{background:var(--soft);color:var(--muted);font-size:13px;line-height:1;font-weight:800}
 section.group{display:grid;gap:12px;scroll-margin-top:16px}
 .gh{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .gh h2{font:800 20px var(--head);letter-spacing:-.015em;margin:0}
 .gh p{margin:2px 0 0;color:var(--muted);font-size:14px}
 #itemsBasics,#itemsContent{display:grid;gap:12px}
-.item{padding:16px 18px;display:grid;gap:12px;transition:border-color .15s,box-shadow .15s}
+.item{padding:16px 18px;display:grid;gap:12px;border-left:4px solid transparent;transition:border-color .15s,box-shadow .15s,background .15s,opacity .15s}
 .item:hover{box-shadow:var(--shadow-lg)}
-.item[data-s=ready]{border-color:var(--ok)}
+.item[data-s=ready]{border-color:var(--ok);background:linear-gradient(180deg,var(--ok-soft) 0%,var(--surface) 70px)}
+.item[data-s=na]{border-color:var(--line);opacity:.65}
 .item-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
-.item h3{font:700 16px var(--head);margin:0}
+.item h3{font:700 16px var(--head);margin:0;display:flex;align-items:center;gap:8px}
 .item p.need{margin:2px 0 0;font-size:14px;color:var(--muted)}
 .seg{display:inline-flex;background:var(--soft);border-radius:10px;padding:3px;gap:2px;flex:none}
 .seg label{position:relative;cursor:pointer}
 .seg input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
-.seg span{display:block;padding:6px 12px;border-radius:8px;font:600 13px var(--head);color:var(--muted);white-space:nowrap;transition:background .15s,color .15s,box-shadow .15s}
+.seg span{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font:600 13px var(--head);color:var(--muted);white-space:nowrap;transition:background .15s,color .15s,box-shadow .15s}
+.seg span i{flex:none;width:14px;height:14px;display:grid;place-items:center;font-style:normal;line-height:1}
 .seg input:checked + span{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(15,27,51,.14)}
 .item[data-s=ready] .seg input:checked + span{background:var(--ok);color:#fff}
+.item[data-s=na] .seg input:checked + span{background:var(--muted);color:#fff}
 .seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:1px}
 input[type=text],textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;transition:border-color .15s}
 input[type=text]:hover,textarea:hover{border-color:#c7d0e0}
@@ -167,6 +182,11 @@ input[type=text]:focus-visible,textarea:focus-visible,.btn:focus-visible{outline
       <div><b>1</b><span>Type or paste a link in the box. Drive and WeTransfer links work.</span></div>
       <div><b>2</b><span>Mark the item Ready when you have sent it, or Not needed.</span></div>
       <div><b>3</b><span>At the bottom, copy your answers and send them to us.</span></div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="dot-todo"></i><b>To do</b> — nothing sent yet</span>
+      <span><i class="dot-ready">✓</i><b>Ready</b> — you've sent this</span>
+      <span><i class="dot-na">–</i><b>Not needed</b> — skip this one</span>
     </div>
   </div>
 
@@ -247,6 +267,19 @@ var CONTENT=[
 ];
 var GROUPS=[['about','About this website'],['basics','Brand and access'],['pages','The five pages'],['content','Page content'],['claims','Claims']];
 var TOTAL_ITEMS=BASIC.length+CONTENT.length;
+var ICON_STROKE='stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+var ICONS={
+  about:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.8" r=".6" fill="currentColor" stroke="none"/></svg>',
+  basics:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7"/></svg>',
+  pages:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></svg>',
+  content:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><path d="M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7.5z"/><path d="M13.5 3v4.5H19"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="16.5" x2="13" y2="16.5"/></svg>',
+  claims:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><path d="M12 2.5 4.5 5.5v6c0 5 3.3 8.6 7.5 10 4.2-1.4 7.5-5 7.5-10v-6z"/><path d="m8.7 12 2.2 2.2L15.3 9.7"/></svg>'
+};
+var STATUS_ICON={
+  todo:'<i aria-hidden="true">&#9675;</i>',
+  ready:'<i aria-hidden="true">&#10003;</i>',
+  na:'<i aria-hidden="true">&#8211;</i>'
+};
 
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 
@@ -279,11 +312,16 @@ function buildStatic(){
   document.getElementById('pageMap').innerHTML=pm;
 
   var nav=document.getElementById('nav');
-  nav.innerHTML=GROUPS.map(function(g){return '<button type="button" data-nav="'+g[0]+'"><span>'+g[1]+'</span><span class="cnt" id="c-'+g[0]+'"></span></button>'}).join('');
+  nav.innerHTML=GROUPS.map(function(g){return '<button type="button" data-nav="'+g[0]+'"><span class="navlabel"><span class="navicon">'+ICONS[g[0]]+'</span><span>'+g[1]+'</span></span><span class="cnt" id="c-'+g[0]+'"></span></button>'}).join('');
   nav.addEventListener('click',function(e){var b=e.target.closest('[data-nav]');if(!b)return;
     var el=document.getElementById('g-'+b.getAttribute('data-nav'));
     var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(el) el.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+  });
+
+  GROUPS.forEach(function(g){
+    var h2=document.querySelector('#g-'+g[0]+' .gh h2');
+    if(h2) h2.insertAdjacentHTML('afterbegin','<span class="navicon" style="display:inline-grid;vertical-align:-5px;margin-right:8px;width:22px;height:22px;color:var(--accent-ink)">'+ICONS[g[0]]+'</span>');
   });
 
   var ss=document.getElementById('siteSwitch');
@@ -296,7 +334,7 @@ function itemHtml(id,it){
   return '<div class="panel item" data-item="'+id+'" data-s="todo"><div class="item-top"><div><h3>'+esc(it[0])+'</h3><p class="need">'+esc(it[1])+'</p></div>'+
     '<div class="seg" role="radiogroup" aria-label="Status of '+esc(it[0])+'">'+
     ['todo:To do','ready:Ready','na:Not needed'].map(function(o){var p=o.split(':');
-      return '<label><input type="radio" name="'+id+'_st" value="'+p[0]+'" data-st="'+id+'"><span>'+p[1]+'</span></label>'}).join('')+'</div></div>'+
+      return '<label><input type="radio" name="'+id+'_st" value="'+p[0]+'" data-st="'+id+'"><span>'+STATUS_ICON[p[0]]+p[1]+'</span></label>'}).join('')+'</div></div>'+
     '<input type="text" id="'+id+'_tx" data-k="'+id+'_tx" placeholder="Paste a link or type here" aria-label="Answer or link for '+esc(it[0])+'"></div>';
 }
 
