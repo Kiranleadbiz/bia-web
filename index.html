@@ -110,6 +110,8 @@ section.group{display:grid;gap:12px;scroll-margin-top:16px}
 .item[data-s=ready] .seg input:checked + span{background:var(--ok);color:#fff}
 .item[data-s=na] .seg input:checked + span{background:var(--muted);color:#fff}
 .seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:1px}
+.filehint{display:flex;align-items:flex-start;gap:7px;margin:-2px 0 0;font-size:13px;color:var(--accent-ink);background:var(--accent-soft);border-radius:8px;padding:8px 10px}
+.filehint i{flex:none;font-style:normal;line-height:1.3}
 input[type=text],textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;transition:border-color .15s}
 input[type=text]:hover,textarea:hover{border-color:#c7d0e0}
 textarea{min-height:100px;resize:vertical}
@@ -239,7 +241,7 @@ input[type=text]:focus-visible,textarea:focus-visible,.btn:focus-visible{outline
 <script>
 (function(){
 var BASIC=[
-['Logo','PNG or SVG file. Light and dark versions if you have them.'],
+['Logo','PNG or SVG file. Light and dark versions if you have them.',1],
 ['Brand colours and fonts','Colour codes, or your brand guide.'],
 ['Web address and hosting','Login details, or the name of the person who manages them.'],
 ['CRM details','Name of your CRM and who can give us access to connect the forms.'],
@@ -251,19 +253,19 @@ var BASIC=[
 ];
 var CONTENT=[
 ['Home: headline and one-line offer','What you do and for whom, in one sentence.'],
-['Home: main video or image','A short campus or class video, or a photo.'],
+['Home: main video or image','A short campus or class video, or a photo.',1],
 ['Home: numbers or proof','Only figures you can back up in writing.'],
 ['Home: who it is for','The groups visitors should pick from, for example working professionals and students.'],
 ['About: your story','Who you are, when you started and why.'],
-['About: team and faculty','Name, role, photo and a two-line bio for each person.'],
+['About: team and faculty','Name, role, photo and a two-line bio for each person.',1],
 ['Courses: list','Name of each course, who it is for and what it covers.'],
 ['Courses: details','Duration, fee, batch timings, classroom or online, certificate. Only what you want shown.'],
-['Results and gallery','Student projects, class photos, events.'],
-['Testimonials','Name, photo, one or two lines, and permission to use them.'],
+['Results and gallery','Student projects, class photos, events.',1],
+['Testimonials','Name, photo, one or two lines, and permission to use them.',1],
 ['FAQs','The 6 to 8 questions people ask you most, with answers.'],
 ['Enquiry form','Which questions the form should ask, and where each enquiry should go.'],
 ['Page 4 content','Whatever the fourth page is for, as named under The five pages.'],
-['Photos and videos','Sharp photos that are yours or licensed to you.']
+['Photos and videos','Sharp photos that are yours or licensed to you.',1]
 ];
 var GROUPS=[['about','About this website'],['basics','Brand and access'],['pages','The five pages'],['content','Page content'],['claims','Claims']];
 var TOTAL_ITEMS=BASIC.length+CONTENT.length;
@@ -331,11 +333,14 @@ function buildStatic(){
   });
 }
 function itemHtml(id,it){
+  var isFile=!!it[2];
   return '<div class="panel item" data-item="'+id+'" data-s="todo"><div class="item-top"><div><h3>'+esc(it[0])+'</h3><p class="need">'+esc(it[1])+'</p></div>'+
     '<div class="seg" role="radiogroup" aria-label="Status of '+esc(it[0])+'">'+
     ['todo:To do','ready:Ready','na:Not needed'].map(function(o){var p=o.split(':');
       return '<label><input type="radio" name="'+id+'_st" value="'+p[0]+'" data-st="'+id+'"><span>'+STATUS_ICON[p[0]]+p[1]+'</span></label>'}).join('')+'</div></div>'+
-    '<input type="text" id="'+id+'_tx" data-k="'+id+'_tx" placeholder="Paste a link or type here" aria-label="Answer or link for '+esc(it[0])+'"></div>';
+    '<input type="text" id="'+id+'_tx" data-k="'+id+'_tx" placeholder="Paste a link or type here" aria-label="Answer or link for '+esc(it[0])+'">'+
+    (isFile?'<p class="filehint"><i aria-hidden="true">&#9993;</i>Can\'t upload or get a link? Just send the file to us directly on WhatsApp instead.</p>':'')+
+    '</div>';
 }
 
 function done(it,st){var v=st[it.id+'_st']||'todo';return v!=='todo'}
