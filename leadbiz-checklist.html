@@ -1,0 +1,355 @@
+<meta charset="utf-8">
+<title>Website Content Checklist</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230B1B3A'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-weight='800' font-size='16' fill='%23F5A524' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: SaaS app shell. Left rail with progress and section nav on desktop, collapsing to a top bar with chips on phones. Main column of item cards with a three-way status control. */
+:root{
+  --bg:#F3F5F9; --surface:#FFFFFF; --ink:#0F1B33; --muted:#5E6B85; --line:#E3E8F0; --soft:#EEF1F7;
+  --brand:#0B1B3A; --brand2:#142a56; --brand-ink:#FFFFFF; --accent:#F5A524; --accent2:#FFC968; --accent-soft:#FFF3DC; --accent-ink:#8A5A00;
+  --ok:#14795A; --ok-soft:#E1F4EC; --na:#5E6B85;
+  --shadow:0 1px 2px rgba(15,27,51,.05),0 6px 20px rgba(15,27,51,.05);
+  --shadow-lg:0 2px 4px rgba(15,27,51,.06),0 16px 40px rgba(15,27,51,.09);
+  --head:'Plus Jakarta Sans','Segoe UI',Arial,sans-serif; --body:'Public Sans','Segoe UI',Arial,sans-serif;
+  --r-lg:18px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 80px;
+  -webkit-font-smoothing:antialiased}
+.shell{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:272px minmax(0,1fr);gap:28px;align-items:start}
+.rail{position:sticky;top:calc(20px + env(safe-area-inset-top,0px));display:grid;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.id{padding:18px;display:grid;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;font:800 15px var(--head);letter-spacing:.04em}
+.logo i{width:30px;height:30px;border-radius:9px;background:linear-gradient(155deg,var(--brand),var(--brand2));color:var(--accent);display:grid;place-items:center;font:800 15px var(--head);font-style:normal;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.ring-row{display:flex;align-items:center;gap:14px}
+.ring{--p:0;width:68px;height:68px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p)*1%),var(--soft) 0);display:grid;place-items:center;flex:none;transition:background 1s cubic-bezier(.16,1,.3,1)}
+.ring b{width:52px;height:52px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font:800 16px var(--head)}
+.ring-row p{margin:0;font-size:14px;color:var(--muted)}
+.ring-row strong{display:block;color:var(--ink);font:700 15px var(--head)}
+.nav{padding:8px;display:grid;gap:2px}
+.nav button{all:unset;box-sizing:border-box;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font:600 14px var(--head);color:var(--ink);transition:background .12s}
+.nav button:hover{background:var(--soft)}
+.nav button[aria-current=true]{background:var(--soft)}
+.nav .navlabel{display:flex;align-items:center;gap:10px;min-width:0}
+.nav .navicon{flex:none;width:18px;height:18px;color:var(--muted)}
+.nav .navicon svg{width:100%;height:100%}
+.nav button[aria-current=true] .navicon{color:var(--accent-ink)}
+.nav .cnt{font:600 12px var(--body);color:var(--muted);background:var(--soft);padding:2px 8px;border-radius:99px;transition:background .2s,color .2s;flex:none}
+.nav button[aria-current=true] .cnt{background:var(--surface)}
+.nav .cnt.full{background:var(--ok-soft);color:var(--ok)}
+.main{display:grid;gap:30px;min-width:0}
+.hero h1{font:800 clamp(26px,4vw,34px)/1.12 var(--head);letter-spacing:-.025em;margin:0 0 8px;text-wrap:balance}
+.hero p{margin:0;color:var(--muted);max-width:60ch}
+.howto{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.howto div{display:flex;gap:10px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:14px}
+.howto b{flex:none;width:24px;height:24px;border-radius:8px;background:linear-gradient(155deg,var(--brand),var(--brand2));color:var(--accent);display:grid;place-items:center;font:700 12px var(--head)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;padding:12px 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.legend span{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.legend b{font:600 13px var(--head);color:var(--ink)}
+.legend i{flex:none;width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-style:normal}
+.legend .dot-todo{background:var(--soft);box-shadow:inset 0 0 0 2px var(--muted)}
+.legend .dot-ready{background:var(--ok);color:#fff;font-size:10px;font-weight:800}
+.legend .dot-na{background:var(--soft);color:var(--muted);font-size:13px;line-height:1;font-weight:800}
+section.group{display:grid;gap:12px;scroll-margin-top:16px}
+.gh h2{font:800 20px var(--head);letter-spacing:-.015em;margin:0}
+.gh p{margin:2px 0 0;color:var(--muted);font-size:14px}
+#itemsBasics,#itemsContent{display:grid;gap:12px}
+.item{padding:16px 18px;display:grid;gap:12px;border-left:4px solid transparent;transition:border-color .15s,box-shadow .15s,background .15s,opacity .15s}
+.item:hover{box-shadow:var(--shadow-lg)}
+.item[data-s=ready]{border-color:var(--ok);background:linear-gradient(180deg,var(--ok-soft) 0%,var(--surface) 70px)}
+.item[data-s=na]{border-color:var(--line);opacity:.65}
+.item-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.item h3{font:700 16px var(--head);margin:0}
+.item p.need{margin:2px 0 0;font-size:14px;color:var(--muted)}
+.seg{display:inline-flex;background:var(--soft);border-radius:10px;padding:3px;gap:2px;flex:none}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+.seg span{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:8px;font:600 13px var(--head);color:var(--muted);white-space:nowrap;transition:background .15s,color .15s,box-shadow .15s}
+.seg span i{flex:none;width:14px;height:14px;display:grid;place-items:center;font-style:normal;line-height:1}
+.seg input:checked + span{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(15,27,51,.14)}
+.item[data-s=ready] .seg input:checked + span{background:var(--ok);color:#fff}
+.item[data-s=na] .seg input:checked + span{background:var(--muted);color:#fff}
+.seg input:focus-visible + span{outline:3px solid var(--accent);outline-offset:1px}
+.filehint{display:flex;align-items:flex-start;gap:7px;margin:-2px 0 0;font-size:13px;color:var(--accent-ink);background:var(--accent-soft);border-radius:8px;padding:8px 10px}
+.filehint i{flex:none;font-style:normal;line-height:1.3}
+input[type=text],textarea{width:100%;font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0;transition:border-color .15s}
+input[type=text]:hover,textarea:hover{border-color:#c7d0e0}
+textarea{min-height:100px;resize:vertical}
+input[type=text]:focus-visible,textarea:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:1px;background:var(--surface)}
+::placeholder{color:var(--muted);opacity:.75}
+.fields{padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fields label,.lab{display:block;font:600 13px var(--head);color:var(--muted);margin-bottom:5px}
+.map{padding:18px}
+.map ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.map li{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:6px;align-content:start}
+.map li small{font:700 11px var(--head);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.map li.fixed{background:var(--soft)}
+.map li.fixed b{font:700 15px var(--head)}
+.send{background:linear-gradient(155deg,var(--brand),var(--brand2));color:#fff;border-radius:var(--r-lg);padding:26px;display:grid;gap:12px;box-shadow:var(--shadow-lg)}
+.send h2{margin:0;font:800 22px var(--head);letter-spacing:-.015em}
+.send p{margin:0;color:#C3CEE8}
+.btn{font:700 16px var(--head);background:linear-gradient(155deg,var(--accent2),var(--accent));color:#14213D;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;width:max-content;transition:transform .1s,box-shadow .15s}
+.btn:hover{box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line);font-size:14px;padding:10px 14px}
+.msg{min-height:1.4em;font-size:15px;color:#C3CEE8}
+.summary{width:100%;min-height:200px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--surface);color:var(--ink)}
+.foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;color:var(--muted);font-size:14px}
+@media (max-width:920px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:18px}
+  .rail{position:static}
+  .id{grid-template-columns:1fr;}
+  .nav{display:flex;overflow-x:auto;padding:6px;gap:4px;scrollbar-width:none}
+  .nav button{flex:none;white-space:nowrap}
+  .howto{grid-template-columns:1fr}
+  .map ol{grid-template-columns:1fr 1fr}
+  .map li.fixed{grid-column:auto}
+}
+@media (max-width:560px){
+  .fields{grid-template-columns:1fr}
+  .item-top{flex-direction:column}
+  .seg{width:100%}.seg label{flex:1}.seg span{text-align:center;padding:9px 6px}
+  .map ol{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.item,.ring{transition:none}}
+</style>
+
+<div class="shell">
+<aside class="rail">
+  <div class="panel id">
+    <div class="logo"><i>L</i>LEADBIZ</div>
+    <div class="ring-row">
+      <div class="ring" id="ring"><b id="pct">0%</b></div>
+      <p><strong id="ptxt">0 of 0 ready</strong>Items you have sent us</p>
+    </div>
+  </div>
+  <nav class="panel nav" id="nav" aria-label="Sections"></nav>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <h1>Website content checklist</h1>
+    <p>This list shows what we need from you to write and build this website. Fill in what you have. Anything missing, we will chase.</p>
+    <div class="howto">
+      <div><b>1</b><span>Type or paste a link in the box. Drive and WeTransfer links work.</span></div>
+      <div><b>2</b><span>Mark the item Ready when you have sent it, or Not needed.</span></div>
+      <div><b>3</b><span>At the bottom, copy your answers and send them to us.</span></div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="dot-todo"></i><b>To do</b> — nothing sent yet</span>
+      <span><i class="dot-ready">✓</i><b>Ready</b> — you've sent this</span>
+      <span><i class="dot-na">–</i><b>Not needed</b> — skip this one</span>
+    </div>
+  </div>
+
+  <section class="group" id="g-about" data-g="about">
+    <div class="gh"><h2>About this website</h2><p>Basic details so we know what we are building.</p></div>
+    <div class="panel fields">
+      <div><label for="name">Business name</label><input type="text" id="name" data-k="name" placeholder="Business name"></div>
+      <div><label for="dom">Web address, if you have one</label><input type="text" id="dom" data-k="dom" placeholder="example.in"></div>
+      <div><label for="cname">Who approves the work?</label><input type="text" id="cname" data-k="cname" placeholder="Name"></div>
+      <div><label for="cphone">Phone or WhatsApp</label><input type="text" id="cphone" data-k="cphone" placeholder="Number"></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-basics" data-g="basics">
+    <div class="gh"><h2>Brand and access</h2><p>Logo, contact details and the logins we need.</p></div>
+    <div id="itemsBasics">
+      <div class="panel item" data-item="b0" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Logo</h3><p class="need">PNG or SVG file. Light and dark versions if you have them.</p></div><div class="seg" role="radiogroup" aria-label="Status of Logo"><label><input type="radio" name="b0_st" value="todo" data-st="b0"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b0_st" value="ready" data-st="b0"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b0_st" value="na" data-st="b0"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b0_tx" data-k="b0_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Logo"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+      <div class="panel item" data-item="b1" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Brand colours and fonts</h3><p class="need">Colour codes, or your brand guide. If you have none, say so and we will suggest.</p></div><div class="seg" role="radiogroup" aria-label="Status of Brand colours and fonts"><label><input type="radio" name="b1_st" value="todo" data-st="b1"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b1_st" value="ready" data-st="b1"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b1_st" value="na" data-st="b1"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b1_tx" data-k="b1_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Brand colours and fonts"></div>
+      <div class="panel item" data-item="b2" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Web address and hosting</h3><p class="need">Where the website will live, and login details or the name of the person who manages them.</p></div><div class="seg" role="radiogroup" aria-label="Status of Web address and hosting"><label><input type="radio" name="b2_st" value="todo" data-st="b2"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b2_st" value="ready" data-st="b2"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b2_st" value="na" data-st="b2"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b2_tx" data-k="b2_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Web address and hosting"></div>
+      <div class="panel item" data-item="b3" data-g="basics" data-s="todo"><div class="item-top"><div><h3>CRM or enquiry handling</h3><p class="need">Name of your CRM if you use one. If not, say where enquiries should go: email or WhatsApp.</p></div><div class="seg" role="radiogroup" aria-label="Status of CRM or enquiry handling"><label><input type="radio" name="b3_st" value="todo" data-st="b3"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b3_st" value="ready" data-st="b3"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b3_st" value="na" data-st="b3"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b3_tx" data-k="b3_tx" placeholder="Paste a link or type here" aria-label="Answer or link for CRM or enquiry handling"></div>
+      <div class="panel item" data-item="b4" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Contact details</h3><p class="need">Phone, WhatsApp, email, full address and Google Maps link.</p></div><div class="seg" role="radiogroup" aria-label="Status of Contact details"><label><input type="radio" name="b4_st" value="todo" data-st="b4"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b4_st" value="ready" data-st="b4"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b4_st" value="na" data-st="b4"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b4_tx" data-k="b4_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Contact details"></div>
+      <div class="panel item" data-item="b5" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Social media links</h3><p class="need">Instagram, LinkedIn, YouTube, Facebook.</p></div><div class="seg" role="radiogroup" aria-label="Status of Social media links"><label><input type="radio" name="b5_st" value="todo" data-st="b5"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b5_st" value="ready" data-st="b5"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b5_st" value="na" data-st="b5"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b5_tx" data-k="b5_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Social media links"></div>
+      <div class="panel item" data-item="b6" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Tracking codes</h3><p class="need">Meta Pixel and Google Analytics, if already set up.</p></div><div class="seg" role="radiogroup" aria-label="Status of Tracking codes"><label><input type="radio" name="b6_st" value="todo" data-st="b6"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b6_st" value="ready" data-st="b6"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b6_st" value="na" data-st="b6"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b6_tx" data-k="b6_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Tracking codes"></div>
+      <div class="panel item" data-item="b7" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Privacy policy and terms</h3><p class="need">Send yours, or tell us to write a basic one.</p></div><div class="seg" role="radiogroup" aria-label="Status of Privacy policy and terms"><label><input type="radio" name="b7_st" value="todo" data-st="b7"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b7_st" value="ready" data-st="b7"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b7_st" value="na" data-st="b7"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b7_tx" data-k="b7_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Privacy policy and terms"></div>
+      <div class="panel item" data-item="b8" data-g="basics" data-s="todo"><div class="item-top"><div><h3>Websites you like</h3><p class="need">Two or three links, and what you like in each.</p></div><div class="seg" role="radiogroup" aria-label="Status of Websites you like"><label><input type="radio" name="b8_st" value="todo" data-st="b8"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="b8_st" value="ready" data-st="b8"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="b8_st" value="na" data-st="b8"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="b8_tx" data-k="b8_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Websites you like"></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-pages" data-g="pages">
+    <div class="gh"><h2>The five pages</h2><p>Page 1 is Home and page 5 is Contact. Name pages 2 to 4.</p></div>
+    <div class="panel map"><ol id="pageMap"></ol></div>
+  </section>
+
+  <section class="group" id="g-content" data-g="content">
+    <div class="gh"><h2>Content for each page</h2><p>Type short text in the box. Share photos and videos as a link.</p></div>
+    <div id="itemsContent">
+      <div class="panel item" data-item="c0" data-g="content" data-s="todo"><div class="item-top"><div><h3>Home: headline and one-line offer</h3><p class="need">What you do and for whom, in one sentence.</p></div><div class="seg" role="radiogroup" aria-label="Status of Home: headline and one-line offer"><label><input type="radio" name="c0_st" value="todo" data-st="c0"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c0_st" value="ready" data-st="c0"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c0_st" value="na" data-st="c0"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c0_tx" data-k="c0_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Home: headline and one-line offer"></div>
+      <div class="panel item" data-item="c1" data-g="content" data-s="todo"><div class="item-top"><div><h3>Home: main image or video</h3><p class="need">A short video or a strong photo.</p></div><div class="seg" role="radiogroup" aria-label="Status of Home: main image or video"><label><input type="radio" name="c1_st" value="todo" data-st="c1"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c1_st" value="ready" data-st="c1"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c1_st" value="na" data-st="c1"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c1_tx" data-k="c1_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Home: main image or video"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+      <div class="panel item" data-item="c2" data-g="content" data-s="todo"><div class="item-top"><div><h3>Home: numbers or proof</h3><p class="need">Only figures you can back up in writing.</p></div><div class="seg" role="radiogroup" aria-label="Status of Home: numbers or proof"><label><input type="radio" name="c2_st" value="todo" data-st="c2"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c2_st" value="ready" data-st="c2"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c2_st" value="na" data-st="c2"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c2_tx" data-k="c2_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Home: numbers or proof"></div>
+      <div class="panel item" data-item="c3" data-g="content" data-s="todo"><div class="item-top"><div><h3>Home: who it is for</h3><p class="need">The kinds of customers the site should speak to.</p></div><div class="seg" role="radiogroup" aria-label="Status of Home: who it is for"><label><input type="radio" name="c3_st" value="todo" data-st="c3"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c3_st" value="ready" data-st="c3"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c3_st" value="na" data-st="c3"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c3_tx" data-k="c3_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Home: who it is for"></div>
+      <div class="panel item" data-item="c4" data-g="content" data-s="todo"><div class="item-top"><div><h3>About: your story</h3><p class="need">Who you are, when you started and why.</p></div><div class="seg" role="radiogroup" aria-label="Status of About: your story"><label><input type="radio" name="c4_st" value="todo" data-st="c4"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c4_st" value="ready" data-st="c4"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c4_st" value="na" data-st="c4"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c4_tx" data-k="c4_tx" placeholder="Paste a link or type here" aria-label="Answer or link for About: your story"></div>
+      <div class="panel item" data-item="c5" data-g="content" data-s="todo"><div class="item-top"><div><h3>About: team</h3><p class="need">Name, role, photo and a two-line bio for each person.</p></div><div class="seg" role="radiogroup" aria-label="Status of About: team"><label><input type="radio" name="c5_st" value="todo" data-st="c5"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c5_st" value="ready" data-st="c5"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c5_st" value="na" data-st="c5"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c5_tx" data-k="c5_tx" placeholder="Paste a link or type here" aria-label="Answer or link for About: team"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+      <div class="panel item" data-item="c6" data-g="content" data-s="todo"><div class="item-top"><div><h3>Services or products: list</h3><p class="need">Name of each service or product and what it covers.</p></div><div class="seg" role="radiogroup" aria-label="Status of Services or products: list"><label><input type="radio" name="c6_st" value="todo" data-st="c6"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c6_st" value="ready" data-st="c6"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c6_st" value="na" data-st="c6"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c6_tx" data-k="c6_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Services or products: list"></div>
+      <div class="panel item" data-item="c7" data-g="content" data-s="todo"><div class="item-top"><div><h3>Services or products: details</h3><p class="need">Price, duration, what is included. Only what you want shown.</p></div><div class="seg" role="radiogroup" aria-label="Status of Services or products: details"><label><input type="radio" name="c7_st" value="todo" data-st="c7"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c7_st" value="ready" data-st="c7"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c7_st" value="na" data-st="c7"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c7_tx" data-k="c7_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Services or products: details"></div>
+      <div class="panel item" data-item="c8" data-g="content" data-s="todo"><div class="item-top"><div><h3>Results and gallery</h3><p class="need">Past work, project photos, events.</p></div><div class="seg" role="radiogroup" aria-label="Status of Results and gallery"><label><input type="radio" name="c8_st" value="todo" data-st="c8"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c8_st" value="ready" data-st="c8"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c8_st" value="na" data-st="c8"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c8_tx" data-k="c8_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Results and gallery"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+      <div class="panel item" data-item="c9" data-g="content" data-s="todo"><div class="item-top"><div><h3>Testimonials</h3><p class="need">Name, photo, one or two lines, and permission to use them.</p></div><div class="seg" role="radiogroup" aria-label="Status of Testimonials"><label><input type="radio" name="c9_st" value="todo" data-st="c9"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c9_st" value="ready" data-st="c9"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c9_st" value="na" data-st="c9"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c9_tx" data-k="c9_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Testimonials"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+      <div class="panel item" data-item="c10" data-g="content" data-s="todo"><div class="item-top"><div><h3>FAQs</h3><p class="need">The 6 to 8 questions people ask you most, with answers.</p></div><div class="seg" role="radiogroup" aria-label="Status of FAQs"><label><input type="radio" name="c10_st" value="todo" data-st="c10"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c10_st" value="ready" data-st="c10"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c10_st" value="na" data-st="c10"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c10_tx" data-k="c10_tx" placeholder="Paste a link or type here" aria-label="Answer or link for FAQs"></div>
+      <div class="panel item" data-item="c11" data-g="content" data-s="todo"><div class="item-top"><div><h3>Enquiry form</h3><p class="need">Which questions the form should ask, and where each enquiry should go.</p></div><div class="seg" role="radiogroup" aria-label="Status of Enquiry form"><label><input type="radio" name="c11_st" value="todo" data-st="c11"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c11_st" value="ready" data-st="c11"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c11_st" value="na" data-st="c11"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c11_tx" data-k="c11_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Enquiry form"></div>
+      <div class="panel item" data-item="c12" data-g="content" data-s="todo"><div class="item-top"><div><h3>Pages 2 to 4: content</h3><p class="need">Whatever each page named under The five pages should say.</p></div><div class="seg" role="radiogroup" aria-label="Status of Pages 2 to 4: content"><label><input type="radio" name="c12_st" value="todo" data-st="c12"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c12_st" value="ready" data-st="c12"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c12_st" value="na" data-st="c12"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c12_tx" data-k="c12_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Pages 2 to 4: content"></div>
+      <div class="panel item" data-item="c13" data-g="content" data-s="todo"><div class="item-top"><div><h3>Photos and videos</h3><p class="need">Sharp photos that are yours or licensed to you.</p></div><div class="seg" role="radiogroup" aria-label="Status of Photos and videos"><label><input type="radio" name="c13_st" value="todo" data-st="c13"><span><i aria-hidden="true">&#9675;</i>To do</span></label><label><input type="radio" name="c13_st" value="ready" data-st="c13"><span><i aria-hidden="true">&#10003;</i>Ready</span></label><label><input type="radio" name="c13_st" value="na" data-st="c13"><span><i aria-hidden="true">&#8211;</i>Not needed</span></label></div></div><input type="text" id="c13_tx" data-k="c13_tx" placeholder="Paste a link or type here" aria-label="Answer or link for Photos and videos"><p class="filehint"><i aria-hidden="true">&#9993;</i>Can't upload or get a link? Just send the file to us directly on WhatsApp instead.</p></div>
+    </div>
+  </section>
+
+  <section class="group" id="g-claims" data-g="claims">
+    <div class="gh"><h2>Claims you want to show</h2><p>Results, guarantees, awards or ranking claims. Add proof for each. We publish a claim only after you approve it in writing.</p></div>
+    <div class="panel fields" style="grid-template-columns:1fr">
+      <div><label for="claims">Claims and proof</label><textarea id="claims" data-k="claims" placeholder="Write none if you have no claims to show"></textarea></div>
+    </div>
+  </section>
+
+  <div class="send">
+    <h2>Done? Send it to us</h2>
+    <p>Press the button, then paste the copied text into a WhatsApp message or email to LeadBiz.</p>
+    <button type="button" class="btn" id="copyBtn">Copy my answers</button>
+    <div class="msg" id="msg" role="status"></div>
+    <textarea class="summary" id="summary" readonly aria-label="Your answers as text" hidden></textarea>
+  </div>
+  <div class="foot">
+    <span>Your answers are saved in this browser as you type.</span>
+    <button type="button" class="btn ghost" id="clearBtn">Clear everything</button>
+  </div>
+</main>
+</div>
+
+<script>
+(function(){
+var ICON_STROKE='stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+var ICONS={
+  about:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16.5"/><circle cx="12" cy="7.8" r=".6" fill="currentColor" stroke="none"/></svg>',
+  basics:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7"/></svg>',
+  pages:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><rect x="3" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.6"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.6"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.6"/></svg>',
+  content:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><path d="M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7.5z"/><path d="M13.5 3v4.5H19"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="16.5" x2="13" y2="16.5"/></svg>',
+  claims:'<svg viewBox="0 0 24 24" '+ICON_STROKE+'><path d="M12 2.5 4.5 5.5v6c0 5 3.3 8.6 7.5 10 4.2-1.4 7.5-5 7.5-10v-6z"/><path d="m8.7 12 2.2 2.2L15.3 9.7"/></svg>'
+};
+var STATUS_ICON={
+  todo:'<i aria-hidden="true">&#9675;</i>',
+  ready:'<i aria-hidden="true">&#10003;</i>',
+  na:'<i aria-hidden="true">&#8211;</i>'
+};
+var BASIC=[
+['Logo','PNG or SVG file. Light and dark versions if you have them.',1],
+['Brand colours and fonts','Colour codes, or your brand guide. If you have none, say so and we will suggest.'],
+['Web address and hosting','Where the website will live, and login details or the name of the person who manages them.'],
+['CRM or enquiry handling','Name of your CRM if you use one. If not, say where enquiries should go: email or WhatsApp.'],
+['Contact details','Phone, WhatsApp, email, full address and Google Maps link.'],
+['Social media links','Instagram, LinkedIn, YouTube, Facebook.'],
+['Tracking codes','Meta Pixel and Google Analytics, if already set up.'],
+['Privacy policy and terms','Send yours, or tell us to write a basic one.'],
+['Websites you like','Two or three links, and what you like in each.']
+];
+var CONTENT=[
+['Home: headline and one-line offer','What you do and for whom, in one sentence.'],
+['Home: main image or video','A short video or a strong photo.',1],
+['Home: numbers or proof','Only figures you can back up in writing.'],
+['Home: who it is for','The kinds of customers the site should speak to.'],
+['About: your story','Who you are, when you started and why.'],
+['About: team','Name, role, photo and a two-line bio for each person.',1],
+['Services or products: list','Name of each service or product and what it covers.'],
+['Services or products: details','Price, duration, what is included. Only what you want shown.'],
+['Results and gallery','Past work, project photos, events.',1],
+['Testimonials','Name, photo, one or two lines, and permission to use them.',1],
+['FAQs','The 6 to 8 questions people ask you most, with answers.'],
+['Enquiry form','Which questions the form should ask, and where each enquiry should go.'],
+['Pages 2 to 4: content','Whatever each page named under The five pages should say.'],
+['Photos and videos','Sharp photos that are yours or licensed to you.',1]
+];
+var GROUPS=[['about','About this website'],['basics','Brand and access'],['pages','The five pages'],['content','Page content'],['claims','Claims']];
+var KEY='leadbiz-site-checklist-v1', ST={};
+try{ST=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){ST={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){}}
+var items=Array.prototype.map.call(document.querySelectorAll('[data-item]'),function(el){return {id:el.getAttribute('data-item'),g:el.getAttribute('data-g')}});
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+var pm='<li class="fixed"><small>Page 1</small><b>Home</b></li>';
+[2,3,4].forEach(function(n){pm+='<li><small>Page '+n+'</small><input type="text" id="pg'+n+'" data-k="pg'+n+'" placeholder="Page name" aria-label="Page '+n+' name"></li>'});
+pm+='<li class="fixed"><small>Page 5</small><b>Contact</b></li>';
+document.getElementById('pageMap').innerHTML=pm;
+
+var nav=document.getElementById('nav');
+nav.innerHTML=GROUPS.map(function(g){return '<button type="button" data-nav="'+g[0]+'"><span class="navlabel"><span class="navicon">'+ICONS[g[0]]+'</span><span>'+g[1]+'</span></span><span class="cnt" id="c-'+g[0]+'"></span></button>'}).join('');
+nav.addEventListener('click',function(e){var b=e.target.closest('[data-nav]');if(!b)return;
+  var el=document.getElementById('g-'+b.getAttribute('data-nav'));
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(el) el.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'});
+});
+GROUPS.forEach(function(g){
+  var h2=document.querySelector('#g-'+g[0]+' .gh h2');
+  if(h2) h2.insertAdjacentHTML('afterbegin','<span class="navicon" style="display:inline-grid;vertical-align:-5px;margin-right:8px;width:22px;height:22px;color:var(--accent-ink)">'+ICONS[g[0]]+'</span>');
+});
+
+function done(it){var v=ST[it.id+'_st']||'todo';return v!=='todo'}
+function refresh(){
+  var d=0;
+  items.forEach(function(it){
+    var v=ST[it.id+'_st']||'todo', el=document.querySelector('[data-item="'+it.id+'"]');
+    el.setAttribute('data-s',v);
+    var r=el.querySelector('input[type=radio][value="'+v+'"]'); if(r) r.checked=true;
+    if(v!=='todo') d++;
+  });
+  var tot=items.length,pc=Math.round(100*d/tot);
+  document.getElementById('ring').style.setProperty('--p',pc);
+  document.getElementById('pct').textContent=pc+'%';
+  document.getElementById('ptxt').textContent=d+' of '+tot+' ready';
+  ['basics','content'].forEach(function(g){
+    var a=items.filter(function(i){return i.g===g}),n=a.filter(done).length,c=document.getElementById('c-'+g);
+    c.textContent=n+'/'+a.length;c.classList.toggle('full',n===a.length);
+  });
+  var pn=[2,3,4].filter(function(n){return ST['pg'+n]}).length,cp=document.getElementById('c-pages');
+  cp.textContent=pn+'/3';cp.classList.toggle('full',pn===3);
+  var ab=['name','dom','cname','cphone'].filter(function(k){return ST[k]}).length,ca=document.getElementById('c-about');
+  ca.textContent=ab+'/4';ca.classList.toggle('full',ab===4);
+  var cl=document.getElementById('c-claims');cl.textContent=ST.claims?'1/1':'0/1';cl.classList.toggle('full',!!ST.claims);
+}
+document.querySelectorAll('[data-k]').forEach(function(el){
+  var k=el.getAttribute('data-k'); if(ST[k]!==undefined) el.value=ST[k];
+  el.addEventListener('input',function(){
+    ST[k]=el.value;
+    var m=k.match(/^([bc]\d+)_tx$/);
+    if(m && el.value.trim() && !ST[m[1]+'_st']) ST[m[1]+'_st']='ready';
+    save();refresh();
+  });
+});
+document.querySelectorAll('[data-st]').forEach(function(r){
+  r.addEventListener('change',function(){ST[r.getAttribute('data-st')+'_st']=r.value;save();refresh()});
+});
+refresh();
+
+var lab={todo:'To do',ready:'READY',na:'Not needed'};
+function summary(){
+  var g=function(k){return ST[k]||'-'};
+  var t='WEBSITE CONTENT CHECKLIST\n\n';
+  t+='Business: '+g('name')+'\nWeb address: '+g('dom')+'\nApproved by: '+g('cname')+' | '+g('cphone')+'\n\nPAGES\nPage 1: Home\n';
+  [2,3,4].forEach(function(n){t+='Page '+n+': '+g('pg'+n)+'\n'});
+  t+='Page 5: Contact\n';
+  function sec(title,list,pre){
+    t+='\n'+title+'\n';
+    list.forEach(function(it,i){var id=pre+i;
+      t+='- '+it[0]+': '+lab[ST[id+'_st']||'todo']+(ST[id+'_tx']?' | '+ST[id+'_tx']:'')+'\n';
+    });
+  }
+  sec('BRAND AND ACCESS',BASIC,'b');sec('PAGE CONTENT',CONTENT,'c');
+  t+='\nCLAIMS AND PROOF\n'+g('claims')+'\n';
+  return t;
+}
+var msg=document.getElementById('msg'),box=document.getElementById('summary');
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var t=summary();box.value=t;box.hidden=false;
+  var ok=function(){msg.textContent='Copied. Now paste it into WhatsApp or email.'};
+  var fb=function(){box.focus();box.select();msg.textContent='Select the text below, copy it and send it to us.'};
+  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}
+});
+var armed=false;
+document.getElementById('clearBtn').addEventListener('click',function(){
+  var b=this;
+  if(!armed){armed=true;b.textContent='Press again to clear';setTimeout(function(){armed=false;b.textContent='Clear everything'},4000);return}
+  ST={};save();location.reload();
+});
+})();
+</script>
